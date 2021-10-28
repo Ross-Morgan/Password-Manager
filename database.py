@@ -1,7 +1,7 @@
 from sqlite3.dbapi2 import Connection, Cursor
 import sqlite3
 
-DATABASE_PATH = "passwords.db"
+DATABASE_PATH = "users.db"
 
 UserData = tuple[str, str]
 

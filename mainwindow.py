@@ -1,5 +1,5 @@
 # Module imports
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtGui, QtWidgets
 import sqlite3
 import sys
 
@@ -9,11 +9,12 @@ from database import Database
 WIDTH, HEIGHT = 640, 480
 
 class MainWindow(QtWidgets.QMainWindow):
-    user: str
     """Main Window class for the application"""
     def __init__(self, user: str, parent=None):
         # Initialise parent class
         super(MainWindow, self).__init__(parent)
+
+        self.user = user
 
         self.font_ = QtGui.QFont("Helvetica", 18)
 
@@ -29,6 +30,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def init_ui(self):
         self.setFixedSize(WIDTH, HEIGHT)
+        self.setWindowTitle(f"Password Manager - {self.user}")
+        self.setWindowIcon(QtGui.QIcon("Assets/database.png"))
 
         self.table_widget = QtWidgets.QTableWidget(self)
         self.table_widget.setGeometry(10, 10, 252, 460)

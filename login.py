@@ -9,7 +9,7 @@ import re
 from mainwindow import MainWindow
 from database import user_db, User, UserData
 
-WIDTH, HEIGHT = 270, 200
+WIDTH, HEIGHT = 320, 200
 
 class Modes(Enum):
     LOGIN = auto()
@@ -33,12 +33,14 @@ class LoginWindow(QtWidgets.QMainWindow):
 
     def setup_ui(self):
         self.setFixedSize(WIDTH, HEIGHT)
+        self.setWindowTitle("Login to Password Manager")
+        self.setWindowIcon(QtGui.QIcon("Assets/enter.png"))
 
         self.username_field = QtWidgets.QLineEdit(self, placeholderText="Username")
         self.password_field = QtWidgets.QLineEdit(self, placeholderText="Password")
 
-        self.username_field.setGeometry(10, 10, 250, 56)
-        self.password_field.setGeometry(10, 70, 250, 56)
+        self.username_field.setGeometry(10, 10, 300, 56)
+        self.password_field.setGeometry(10, 70, 300, 56)
 
         self.username_field.setFont(self.font_)
         self.password_field.setFont(self.font_)
@@ -51,7 +53,8 @@ class LoginWindow(QtWidgets.QMainWindow):
         self.submit_button.clicked.connect(self.on_submit)
 
         self.account_button = QtWidgets.QPushButton(self, text="I don't have an account")
-        self.account_button.setGeometry(120, 130, 140, 56)
+        self.account_button.setGeometry(120, 130, 190, 56)
+        self.account_button.setFont(QtGui.QFont("Helvetica", 12, 5))
         self.account_button.clicked.connect(self.on_account)
 
     def on_account(self):
@@ -87,7 +90,7 @@ class LoginWindow(QtWidgets.QMainWindow):
                 QtWidgets.QMessageBox.question(self, "Error", "Incorrect Username or Password", QtWidgets.QMessageBox.Ok, QtWidgets.QMessageBox.Ok)
                 self.password_field.setText("")
 
-        else:
+        else: # self.mode == Modes.SIGNUP
 
             user_db.cur.execute("insert into Users(name,password) values(?,?)", (submitted_username, submitted_password))
             user_db.con.commit()
