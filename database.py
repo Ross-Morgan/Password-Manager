@@ -1,4 +1,4 @@
-from sqlite3.dbapi2 import Connection, Cursor
+from sqlite3 import Connection, Cursor
 import sqlite3
 
 DATABASE_PATH = "users.db"
